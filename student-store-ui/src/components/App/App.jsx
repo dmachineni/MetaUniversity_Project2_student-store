@@ -6,6 +6,7 @@ import "./App.css"
 import { BrowserRouter} from "react-router-dom"
 import { useState, useEffect} from "react"
 import axios from 'axios'
+import ProductDetail from "../ProductDetail/ProductDetail"
 
 export default function App() {
   const [products, setProducts] = useState([]); //can this be var or does it HAVE to be const?
@@ -86,8 +87,12 @@ export default function App() {
         <main>
           {/* YOUR CODE HERE! */}
           <Navbar />
-          <Sidebar />
-          <Home products={products}/>
+          <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
+            checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
+            handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}/>
+          <Home products={products} shoppingCart={shoppingCart}
+            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>
+          <ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>
         </main>
       </BrowserRouter>
     </div>
