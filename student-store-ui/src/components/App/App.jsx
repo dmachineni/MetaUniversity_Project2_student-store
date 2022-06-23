@@ -86,13 +86,14 @@ export default function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      
 
       <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}/>
 
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route path="/" element={<Home products={products} shoppingCart={shoppingCart}
             handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
