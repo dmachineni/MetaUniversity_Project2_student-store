@@ -1,0 +1,13 @@
+.sidebar{
+    width: 150px;
+}
+.open{
+    width: 350px;
+}
+.open-arrow{
+    width:50px;
+}
+.closed-arrow{
+    width:50px;
+    transform: scaleX(-1);
+}

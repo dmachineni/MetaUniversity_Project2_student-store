@@ -10,13 +10,13 @@ import ProductDetail from "../ProductDetail/ProductDetail"
 import NotFound from "../NotFound/NotFound"
 
 export default function App() {
-  const [products, setProducts] = useState([]); //can this be var or does it HAVE to be const?
+  const [products, setProducts] = useState([]); //state vars have to be const because you want to use the function to change and not be able to directly change the var
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [shoppingCart, setShoppingCart] = useState([]); //array of objects with id and quantity
-  const [checkoutForm,setCheckoutForm] = useState([]); //contains user info: name and email
-
+  const [checkoutForm,setCheckoutForm] = useState({name:'', email:''}); //contains user info: name and email
+console.log(shoppingCart)
   useEffect(async () => {
     await axios.get('https://codepath-store-api.herokuapp.com/store')
       .then(result => setProducts(result.data.products)) 
@@ -38,9 +38,7 @@ export default function App() {
     })
 
     if (!found) {
-      let newCartItem =[];
-      newCartItem.itemId = productId;
-      newCartItem.quantity = 1;
+      let newCartItem ={itemId : productId, quantity : 1};
       setShoppingCart((prevArr) => [...prevArr, newCartItem]);
       return
     }
@@ -69,19 +67,25 @@ export default function App() {
     setShoppingCart(newArr);
   }
 
-  const handleOnCheckoutFormChange = (name, value) => {
-    let newForm = [];
-    newForm.name = name;
-    newForm.value = value;
+  const handleOnCheckoutFormChange = (label, value) => {
+    let newForm = {...checkoutForm};
+    newForm[label]=value;
+    console.log('handleOnCheckoutFormChange',newForm)
     setCheckoutForm(newForm);
   }
 
-  const handleOnSubmitCheckoutForm = () => {
-    axios.post('https://codepath-store-api.herokuapp.com/store', {
-      user: { name: checkoutForm.name, email: checkoutForm.value},
+  const handleOnSubmitCheckoutForm = async () => {
+    console.log('log',{
+      user: { name: checkoutForm.name, email: checkoutForm.email},
+      shoppingCart: shoppingCart
+    })
+    let res = await axios.post('https://codepath-store-api.herokuapp.com/store', {
+      user: { name: checkoutForm.name, email: checkoutForm.email},
       shoppingCart: shoppingCart
     })
 
+    console.log('res:', res)
+    return (res)
   }
 
   return (
@@ -90,7 +94,8 @@ export default function App() {
 
       <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
-        handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}/>
+        handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
+        setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm}/>
 
       <BrowserRouter>
       <Navbar />

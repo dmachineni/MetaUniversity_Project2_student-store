@@ -4,14 +4,32 @@ import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+  let class_var = (props.isOpen) ? "sidebar open" : "sidebar"
   return (
-    <section className="sidebar">
-      <p>Sidebar</p>
-      <button className="toggle-button" onClick={()=>handleOnToggle()}></button>
+    <section className={class_var}>
+      <button className="toggle-button" onClick={()=>props.handleOnToggle()}>
+        {props.isOpen ? open():closed()}
+      </button>
+      {props.isOpen ? <ShoppingCart isOpen={props.isOpen} products = {props.products} 
+        shoppingCart={props.shoppingCart}/> : console.log("")}
       
-      <ShoppingCart />
-      <CheckoutForm />
+      {props.isOpen ? <CheckoutForm isOpen={props.isOpen} shoppingCart={props.shoppingCart} 
+        checkoutForm={props.checkoutForm} handleOnCheckoutFormChange={props.handleOnCheckoutFormChange} 
+        handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}
+        setShoppingCart={props.setShoppingCart} setCheckoutForm={props.setCheckoutForm}
+        /> : console.log("")}
     </section>
+  )
+}
+
+export function open(){
+  return (
+    <img className="open-arrow" src="https://w7.pngwing.com/pngs/674/479/png-transparent-arrow-computer-icons-simple-left-arrow-icon-miscellaneous-purple-angle.png" />
+  )
+}
+export function closed(){
+  return (
+    <img className="closed-arrow" src="https://w7.pngwing.com/pngs/674/479/png-transparent-arrow-computer-icons-simple-left-arrow-icon-miscellaneous-purple-angle.png" />
   )
 }
