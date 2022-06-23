@@ -3,10 +3,11 @@ import Navbar from "../Navbar/Navbar"
 import Sidebar from "../Sidebar/Sidebar"
 import Home from "../Home/Home"
 import "./App.css"
-import { BrowserRouter} from "react-router-dom"
+import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { useState, useEffect} from "react"
 import axios from 'axios'
 import ProductDetail from "../ProductDetail/ProductDetail"
+import NotFound from "../NotFound/NotFound"
 
 export default function App() {
   const [products, setProducts] = useState([]); //can this be var or does it HAVE to be const?
@@ -33,21 +34,23 @@ export default function App() {
   const handleAddItemToCart = (productId) => {
     let found = false;
     shoppingCart.forEach((item) => {
-      if(item.id == productId) {item.quantity = item.quantity + 1; found = true;}
+      if(item.itemId == productId) {item.quantity = item.quantity + 1; found = true;}
     })
 
     if (!found) {
       let newCartItem =[];
-      newCartItem.id = productId;
+      newCartItem.itemId = productId;
       newCartItem.quantity = 1;
       setShoppingCart((prevArr) => [...prevArr, newCartItem]);
+      return
     }
+    setShoppingCart([...shoppingCart])
   }
 
   const handleRemoveItemFromCart = (productId) => {
     let idx;
     shoppingCart.forEach((item, i) => {
-      if(item.id == productId) {
+      if(item.itemId == productId) {
         if(item.quantity == 1) {
           idx = i;
         } else {
@@ -83,17 +86,24 @@ export default function App() {
 
   return (
     <div className="app">
+      <Navbar />
+
+      <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
+        checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
+        handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}/>
+
       <BrowserRouter>
-        <main>
-          {/* YOUR CODE HERE! */}
-          <Navbar />
-          <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
-            checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
-            handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}/>
-          <Home products={products} shoppingCart={shoppingCart}
-            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>
-          <ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>
-        </main>
+        <Routes>
+          <Route path="/" element={<Home products={products} shoppingCart={shoppingCart}
+            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
+
+          <Route path="/products/:productId" element={<ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
+            shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
+
+          <Route path="*" element={<NotFound />}/>
+          
+          {/* <Footer /> */}
+        </Routes>
       </BrowserRouter>
     </div>
   )
