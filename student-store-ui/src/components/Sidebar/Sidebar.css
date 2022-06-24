@@ -1,5 +1,7 @@
 .sidebar{
     width: 150px;
+    display:flex;
+    flex-direction: rocolumnw;
 }
 .open{
     width: 350px;

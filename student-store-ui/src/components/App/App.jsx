@@ -96,8 +96,6 @@ export default function App() {
 
   return (
     <div className="app">
-      
-
       <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}

@@ -7,7 +7,9 @@ export default function Navbar() {
     <nav className="navbar">
       <Logo />
       <h1 className="h1">Home</h1>
-      <h1 className="h2">About Us</h1>
+      <h1 className="h1">About Us</h1>
+      <h1 className="h1">Contact Us</h1>
+      <h1 className="h1">Buy Now</h1>
     </nav>
   )
 }
