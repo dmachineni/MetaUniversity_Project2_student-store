@@ -1,9 +1,11 @@
 .h1{
     margin-right:50px;
+    
+    color: white;
 }
 
 .navbar{
     display:flex;
     flex-direction:row;
-    
+    background-color: rgb(87, 50, 2);
 }

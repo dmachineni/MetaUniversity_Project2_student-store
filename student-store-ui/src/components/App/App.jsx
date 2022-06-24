@@ -19,27 +19,36 @@ export default function App() {
   const [checkoutForm,setCheckoutForm] = useState({name:'', email:''}); //contains user info: name and email
   const [noError, setNoError] = useState(true);
   const [search, setSearch] = useState();
-  // const [category, setCategory] = useState(1);
+  const [searchFilteredProducts, setSearchFilteredProducts] = useState([]);
 
   useEffect(async () => {
     await axios.get('https://codepath-store-api.herokuapp.com/store')
-      .then(result => {setProducts(result.data.products); setFilteredProducts(result.data.products)}) 
+      .then(result => {setProducts(result.data.products); setFilteredProducts(result.data.products); setSearchFilteredProducts(result.data.products)}) 
       .catch(e=>setError(error))
   },[]);
 
+  // useEffect(() => {
+  //   setSearchFilteredProducts(filteredProducts);
+  // }, [filteredProducts])
+
   const handleOnSearchChange = (searchInput) => {
+    // setSearchFilteredProducts(filteredProducts);
+    console.log('search',searchInput)
+    console.log('filtered products', filteredProducts)
     let filtered = [];
-    products.map((p)=>{
-      if(p.name.includes(searchInput)) {
+    filteredProducts.map((p)=>{
+      if(p.name.toLowerCase().includes(searchInput.toLowerCase())) {
         filtered.push(p);
       }
     })
-    setFilteredProducts(filtered);
+    console.log('final',filtered)
+    setSearchFilteredProducts(filtered);
   }
 
   const handleCategoryChange = (categoryName) => {
     if (categoryName === "all") {
       setFilteredProducts(products);
+      setSearchFilteredProducts(products);
     } else {
       let filtered = [];
       products.map((p)=>{
@@ -48,6 +57,7 @@ export default function App() {
         }
       })
       setFilteredProducts(filtered);
+      setSearchFilteredProducts(filtered);
     }
 
   }
@@ -126,25 +136,25 @@ export default function App() {
 
   
       <BrowserRouter>
-          <div className="app">
-      <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
+        <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
         setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm} noError={noError} error={error}/>
 
-      <Navbar />
-        <Routes>
-          <Route path="/" element={<Home products={filteredProducts} shoppingCart={shoppingCart} handleOnSearchChange={handleOnSearchChange}
-            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} 
-            search={search} setSearch={setSearch} handleCategoryChange={handleCategoryChange} />}/>
+        <div className="app">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home products={searchFilteredProducts} shoppingCart={shoppingCart} handleOnSearchChange={handleOnSearchChange}
+              handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} 
+              search={search} setSearch={setSearch} handleCategoryChange={handleCategoryChange} />}/>
 
-          <Route path="/products/:productId" element={<ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
-            shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
+            <Route path="/products/:productId" element={<ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
+              shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
 
-          <Route path="*" element={<NotFound />}/>
-          
-          {/* <Footer /> */}
-        </Routes>
+            <Route path="*" element={<NotFound />}/>
+            
+            {/* <Footer /> */}
+          </Routes>
         </div>
       </BrowserRouter>
 

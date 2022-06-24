@@ -41,13 +41,7 @@ export default function Search(props) {
     return (
         <div>
             <div className="search-bar">
-                {/* <div id = "search-input-div" > */}
                 <input type = "text" id = "search" placeholder="Search for a product here" onChange={(e)=>props.handleOnSearchChange(e.target.value)}></input>
-                {/* </div> */}
-
-                {/* <div>
-                    <button id = "search-button" type = "submit" onClick={(e)=>props.handleOnSearchChange(e.target.value)}>Search</button>
-                </div> */}
             </div> 
 
             <div className="categories">

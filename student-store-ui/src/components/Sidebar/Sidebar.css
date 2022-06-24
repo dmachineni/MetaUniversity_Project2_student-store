@@ -2,14 +2,22 @@
     width: 150px;
     display:flex;
     flex-direction: column;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    background-color: rgb(87, 50, 2);
 }
 .open{
     width: 350px;
 }
-.open-arrow{
-    width:50px;
-}
 .closed-arrow{
     width:50px;
+}
+.open-arrow{
+    width:50px;
     transform: scaleX(-1);
+}
+
+.toggle-button{
+    background-color: rgb(87, 50, 2);
 }
