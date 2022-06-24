@@ -136,15 +136,15 @@ export default function App() {
   
 
   return (
-
-  
+    <div className="app">
       <BrowserRouter>
+      <div className="main">
         <Sidebar receipt={receipt} isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
         setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm} noError={noError} error={error}/>
 
-        <div className="app">
+        <div className="app-excluding-sidebar">
           <Navbar />
           <Routes>
             <Route path="/" element={
@@ -170,7 +170,9 @@ export default function App() {
               </div>}/>
           </Routes>
         </div>
+      </div>
       </BrowserRouter>
+    </div>
 
   )
 }

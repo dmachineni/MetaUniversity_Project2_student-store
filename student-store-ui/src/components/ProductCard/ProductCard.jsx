@@ -14,7 +14,7 @@ export function ProductCard(props) {
         </p>
   
         <p className = "product-price"> 
-            $ {props.product.price}
+            $ {props.product.price.toFixed(2)}
         </p>
   
   
