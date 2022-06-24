@@ -1,0 +1,12 @@
+.h1,h2{
+    float:left;
+}
+
+.h1{
+    margin:50px;
+}
+
+.navbar{
+    display:flex;
+    flex-direction:row;
+}

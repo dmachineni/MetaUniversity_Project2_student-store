@@ -1,11 +1,11 @@
 import "./CheckoutForm.css"
 import * as React from "react"
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import { useState} from "react"
 
 
 export default function CheckoutForm(props) {
-    let result;
-
+    const [submitted, setSubmitted] = useState(false);
     return (
         <div className="checkout-form">
             <input className="checkout-form-input" type="email" name="email" 
@@ -17,23 +17,12 @@ export default function CheckoutForm(props) {
             <button className="checkout-button" 
                 onClick={()=>{
                     props.handleOnSubmitCheckoutForm()
-                        .then((r)=>{
-                            console.log("success");
-                            <div className="success">Success!</div>
-                            props.setShoppingCart([]);
-                            let done = {name:"", email:""}
-                            props.setCheckoutForm(done);
-                        })
-                        .catch((error)=>{
-                            console.log("error");
-                            <div className="error">
-                                {error.message}
-                            </div>
-                        })
-                }}>
+                    setSubmitted(true)
+                }} >
                     Checkout
-                {result}
             </button>
+            {console.log(props.noError)}
+            {submitted ? props.noError ? <div className="success">Success!</div>:<div className="error">Error Message: {props.error.message}</div>:console.log()}
         </div>
     )
 }

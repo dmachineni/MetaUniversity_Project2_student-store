@@ -16,7 +16,8 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [shoppingCart, setShoppingCart] = useState([]); //array of objects with id and quantity
   const [checkoutForm,setCheckoutForm] = useState({name:'', email:''}); //contains user info: name and email
-console.log(shoppingCart)
+  const [noError, setNoError] = useState(true);
+
   useEffect(async () => {
     await axios.get('https://codepath-store-api.herokuapp.com/store')
       .then(result => setProducts(result.data.products)) 
@@ -75,18 +76,23 @@ console.log(shoppingCart)
   }
 
   const handleOnSubmitCheckoutForm = async () => {
-    console.log('log',{
+    await axios.post('https://codepath-store-api.herokuapp.com/store', {
       user: { name: checkoutForm.name, email: checkoutForm.email},
       shoppingCart: shoppingCart
     })
-    let res = await axios.post('https://codepath-store-api.herokuapp.com/store', {
-      user: { name: checkoutForm.name, email: checkoutForm.email},
-      shoppingCart: shoppingCart
-    })
-
-    console.log('res:', res)
-    return (res)
+      .then((r)=>{
+        setShoppingCart([]);
+        let done = {name:"", email:""}
+        setCheckoutForm(done);
+        setNoError(true);
+      })
+      .catch((e)=>{
+        console.log('error', e)
+        setNoError(false);
+        setError(e);
+      })
   }
+  
 
   return (
     <div className="app">
@@ -95,7 +101,7 @@ console.log(shoppingCart)
       <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
-        setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm}/>
+        setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm} noError={noError} error={error}/>
 
       <BrowserRouter>
       <Navbar />
