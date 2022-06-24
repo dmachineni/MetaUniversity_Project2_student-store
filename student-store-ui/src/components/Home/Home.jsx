@@ -3,6 +3,8 @@ import "./Home.css"
 import { Hero } from "../Hero/Hero"
 import ProductGrid from "../ProductGrid/ProductGrid"
 import Search from "../Search/Search"
+import About from "../About/About"
+import ContactUs from "../ContactUs/ContactUs"
 
 export default function Home(props) {
   return (
@@ -13,6 +15,8 @@ export default function Home(props) {
         handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart}/>
       <ProductGrid products={props.products} shoppingCart ={props.shoppingCart}
         handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart}/>
+      <About />
+      <ContactUs />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { useState, useEffect} from "react"
 import axios from 'axios'
 import ProductDetail from "../ProductDetail/ProductDetail"
 import NotFound from "../NotFound/NotFound"
+import Footer from "../Footer/Footer"
 
 export default function App() {
   const [products, setProducts] = useState([]); //state vars have to be const because you want to use the function to change and not be able to directly change the var
@@ -146,16 +147,27 @@ export default function App() {
         <div className="app">
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home products={searchFilteredProducts} shoppingCart={shoppingCart} handleOnSearchChange={handleOnSearchChange}
-              handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} 
-              search={search} setSearch={setSearch} handleCategoryChange={handleCategoryChange} />}/>
+            <Route path="/" element={
+            <div>
+              <Home products={searchFilteredProducts} shoppingCart={shoppingCart} handleOnSearchChange={handleOnSearchChange}
+                handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} 
+                search={search} setSearch={setSearch} handleCategoryChange={handleCategoryChange} /> 
+              <Footer />
+            </div>}/>
 
-            <Route path="/products/:productId" element={<ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
-              shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
+            <Route path="/products/:productId" element={
+              <div>
+                <ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
+                  shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>
+                <Footer />
+              </div>  
+            }/>
 
-            <Route path="*" element={<NotFound />}/>
-            
-            {/* <Footer /> */}
+            <Route path="*" element={
+              <div>
+                <NotFound />
+                <Footer />
+              </div>}/>
           </Routes>
         </div>
       </BrowserRouter>
