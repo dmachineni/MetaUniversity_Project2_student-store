@@ -14,7 +14,7 @@ export default function Sidebar(props) {
       {props.isOpen ? <ShoppingCart isOpen={props.isOpen} products = {props.products} 
         shoppingCart={props.shoppingCart}/> : console.log("")}
       
-      {props.isOpen ? <CheckoutForm isOpen={props.isOpen} shoppingCart={props.shoppingCart} 
+      {props.isOpen ? <CheckoutForm receipt={props.receipt} products = {props.products} isOpen={props.isOpen} shoppingCart={props.shoppingCart} 
         checkoutForm={props.checkoutForm} handleOnCheckoutFormChange={props.handleOnCheckoutFormChange} 
         handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}
         setShoppingCart={props.setShoppingCart} setCheckoutForm={props.setCheckoutForm}

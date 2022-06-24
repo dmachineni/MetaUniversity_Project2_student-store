@@ -15,14 +15,26 @@ export default function CheckoutForm(props) {
                 placeholder="Student Name" value={props.checkoutForm.name}
                 onChange={(e)=>{props.handleOnCheckoutFormChange("name", e.target.value) }}></input>
             <button className="checkout-button" 
-                onClick={()=>{
-                    props.handleOnSubmitCheckoutForm()
-                    setSubmitted(true)
-                }} >
+                onClick={()=>{ props.handleOnSubmitCheckoutForm(); setSubmitted(true);}} >
                     Checkout
             </button>
-            {console.log(props.noError)}
-            {submitted ? props.noError ? <div className="success">Success!</div>:<div className="error">Error Message: {props.error.message}</div>:console.log()}
+            {submitted ? props.noError ? success(props.receipt):<div className="error">Error Message: {props.error.message}</div>:console.log()}
+        </div>
+    )
+}
+
+function success(receipt) {
+    let tmp = [];
+    tmp[0]=receipt[1];
+    tmp[1]=receipt[2];
+    tmp[2]=receipt[3];
+    
+    return (
+        <div className="return-success">
+            <div className="success">Thank you for shopping with us! Here is your receipt: </div>
+            <div className="receipt">
+                {tmp}
+            </div>
         </div>
     )
 }

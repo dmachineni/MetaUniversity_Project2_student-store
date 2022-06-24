@@ -20,6 +20,7 @@ export default function App() {
   const [noError, setNoError] = useState(true);
   const [search, setSearch] = useState();
   const [searchFilteredProducts, setSearchFilteredProducts] = useState([]);
+  const [receipt, setReceipt] = useState();
 
   useEffect(async () => {
     await axios.get('https://codepath-store-api.herokuapp.com/store')
@@ -119,6 +120,7 @@ export default function App() {
       shoppingCart: shoppingCart
     })
       .then((r)=>{
+        setReceipt(r.data.purchase.receipt.lines)
         setShoppingCart([]);
         let done = {name:"", email:""}
         setCheckoutForm(done);
@@ -136,7 +138,7 @@ export default function App() {
 
   
       <BrowserRouter>
-        <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
+        <Sidebar receipt={receipt} isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
         setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm} noError={noError} error={error}/>
