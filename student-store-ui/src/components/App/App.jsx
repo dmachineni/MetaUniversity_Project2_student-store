@@ -11,18 +11,46 @@ import NotFound from "../NotFound/NotFound"
 
 export default function App() {
   const [products, setProducts] = useState([]); //state vars have to be const because you want to use the function to change and not be able to directly change the var
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [shoppingCart, setShoppingCart] = useState([]); //array of objects with id and quantity
   const [checkoutForm,setCheckoutForm] = useState({name:'', email:''}); //contains user info: name and email
   const [noError, setNoError] = useState(true);
+  const [search, setSearch] = useState();
+  // const [category, setCategory] = useState(1);
 
   useEffect(async () => {
     await axios.get('https://codepath-store-api.herokuapp.com/store')
-      .then(result => setProducts(result.data.products)) 
+      .then(result => {setProducts(result.data.products); setFilteredProducts(result.data.products)}) 
       .catch(e=>setError(error))
   },[]);
+
+  const handleOnSearchChange = (searchInput) => {
+    let filtered = [];
+    products.map((p)=>{
+      if(p.name.includes(searchInput)) {
+        filtered.push(p);
+      }
+    })
+    setFilteredProducts(filtered);
+  }
+
+  const handleCategoryChange = (categoryName) => {
+    if (categoryName === "all") {
+      setFilteredProducts(products);
+    } else {
+      let filtered = [];
+      products.map((p)=>{
+        if(p.category === categoryName) {
+          filtered.push(p);
+        }
+      })
+      setFilteredProducts(filtered);
+    }
+
+  }
 
   const handleOnToggle = () => {
     if(isOpen) {
@@ -95,17 +123,20 @@ export default function App() {
   
 
   return (
-    <div className="app">
+
+  
+      <BrowserRouter>
+          <div className="app">
       <Sidebar isOpen={isOpen} shoppingCart={shoppingCart} products={products} 
         checkoutForm={checkoutForm} handleOnCheckoutFormChange ={handleOnCheckoutFormChange}
         handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} handleOnToggle={handleOnToggle}
         setShoppingCart={setShoppingCart} setCheckoutForm={setCheckoutForm} noError={noError} error={error}/>
 
-      <BrowserRouter>
       <Navbar />
         <Routes>
-          <Route path="/" element={<Home products={products} shoppingCart={shoppingCart}
-            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
+          <Route path="/" element={<Home products={filteredProducts} shoppingCart={shoppingCart} handleOnSearchChange={handleOnSearchChange}
+            handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} 
+            search={search} setSearch={setSearch} handleCategoryChange={handleCategoryChange} />}/>
 
           <Route path="/products/:productId" element={<ProductDetail isFetching={isFetching} setIsFetching={setIsFetching} 
             shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>}/>
@@ -114,7 +145,8 @@ export default function App() {
           
           {/* <Footer /> */}
         </Routes>
+        </div>
       </BrowserRouter>
-    </div>
+
   )
 }
