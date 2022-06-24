@@ -24,16 +24,11 @@ export default function CheckoutForm(props) {
 }
 
 function success(receipt) {
-    let tmp = [];
-    tmp[0]=receipt[1];
-    tmp[1]=receipt[2];
-    tmp[2]=receipt[3];
-    
     return (
         <div className="return-success">
             <div className="success">Thank you for shopping with us! Here is your receipt: </div>
             <div className="receipt">
-                {tmp}
+                {receipt}
             </div>
         </div>
     )

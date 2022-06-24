@@ -4,6 +4,7 @@ import { useState} from "react"
 import { ProductCard } from "../ProductCard/ProductCard"
 
 export default function ProductView(props) {
+
     let q = 0;
     let obj =  props.shoppingCart.find((item) => props.product.id == item.itemId);
     if(obj != undefined) {

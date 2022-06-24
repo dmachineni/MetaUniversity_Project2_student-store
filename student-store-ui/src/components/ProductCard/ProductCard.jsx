@@ -2,6 +2,7 @@ import "./ProductCard.css"
 import { Link } from "react-router-dom"
 
 export function ProductCard(props) {
+  console.log(props.product)
     return (
       <div className="product-card">
         
@@ -14,7 +15,7 @@ export function ProductCard(props) {
         </p>
   
         <p className = "product-price"> 
-            $ {props.product.price.toFixed(2)}
+            $ {props.product.price?.toFixed(2)}
         </p>
   
   

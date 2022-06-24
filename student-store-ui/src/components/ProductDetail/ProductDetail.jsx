@@ -21,6 +21,7 @@ export default function ProductDetail(props) {
     useEffect(() => {
        getProductData()
       },[]);
+
     
     return (
         <div className="product-detail">  
