@@ -24,7 +24,7 @@ export default function App() {
   const [receipt, setReceipt] = useState();
 
   useEffect(async () => {
-    await axios.get('https://codepath-store-api.herokuapp.com/store')
+    await axios.get('http://localhost:3001/store')
       .then(result => {setProducts(result.data.products); setFilteredProducts(result.data.products); setSearchFilteredProducts(result.data.products)}) 
       .catch(e=>setError(error))
   },[]);
@@ -116,7 +116,7 @@ export default function App() {
   }
 
   const handleOnSubmitCheckoutForm = async () => {
-    await axios.post('https://codepath-store-api.herokuapp.com/store', {
+    await axios.post('http://localhost:3001/store', {
       user: { name: checkoutForm.name, email: checkoutForm.email},
       shoppingCart: shoppingCart
     })

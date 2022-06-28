@@ -1,3 +1,6 @@
+.sidebar .open{
+    transition: 2s;
+}
 .sidebar{
     width: 150px;
     display:flex;

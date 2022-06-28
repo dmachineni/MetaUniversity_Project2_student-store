@@ -7,4 +7,4 @@ export function Hero(props) {
         <img className="hero-img" src='https://u7.uidownload.com/vector/336/32/vector-white-grocery-store-logo-vector-eps.jpg'></img> 
       </div>
     )
-  }
+}

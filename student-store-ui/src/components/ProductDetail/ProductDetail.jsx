@@ -13,7 +13,7 @@ export default function ProductDetail(props) {
     
     async function getProductData(){
         props.setIsFetching(true)
-        await axios.get(`https://codepath-store-api.herokuapp.com/store/${params.productId}`)
+        await axios.get(`http://localhost:3001/store/${params.productId}`)
                 .then(result => {setProduct(result.data.product); props.setIsFetching(false)})
         
     }

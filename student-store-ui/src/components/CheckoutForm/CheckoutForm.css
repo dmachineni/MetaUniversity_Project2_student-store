@@ -1,3 +1,7 @@
 .return-success{
     color:rgb(241, 227, 187);
 }
+
+.receipt {
+    line-height:25px;
+}
