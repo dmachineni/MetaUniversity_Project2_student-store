@@ -15,6 +15,9 @@ Selling merchandise in the modern era requires digital solutions. For this proje
 ![PageAndIconStudentStore](https://user-images.githubusercontent.com/68713537/175751769-3c4621f7-bfc0-457f-868e-a3cc55f3a2c1.gif)
 - Search
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/68713537/175751782-328eed32-e5f8-41b9-8842-7b081060d963.gif)
+- Backend 
+![BackendStudentStoreGIF](https://user-images.githubusercontent.com/68713537/176511612-bba929a0-9575-4745-87d9-d6f0a3f2ca83.gif)
+
 
 ### Application Features
 
@@ -38,9 +41,9 @@ Selling merchandise in the modern era requires digital solutions. For this proje
 - [x]Shopping cart displays a table of products, quantities, subtotal, tax, and total.
 - [x] User can checkout, and receive a receipt confirming their purchase.
 ### Stretch Features for Week 3
-- [] Create an endpoint for fetching all orders in the database, and an endpoint for serving an individual order based on its id.
-- [] Build a page in the UI that displays the list of all past orders and lets the user click on any individual order to take them to a more detailed page of the transaction.
-- [] Allow users to use an input to filter orders by the email of the person who placed the order.
+- [ ] Create an endpoint for fetching all orders in the database, and an endpoint for serving an individual order based on its id.
+- [ ] Build a page in the UI that displays the list of all past orders and lets the user click on any individual order to take them to a more detailed page of the transaction.
+- [ ] Allow users to use an input to filter orders by the email of the person who placed the order.
 
 #### Core Features (Week 2 + 3)
 
