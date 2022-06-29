@@ -1,6 +1,5 @@
 import "./CheckoutForm.css"
-import * as React from "react"
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import React from "react"
 import { useState} from "react"
 
 
@@ -9,6 +8,7 @@ export default function CheckoutForm(props) {
     return (
         <div className="checkout-form">
             <input className="checkout-form-input" type="email" name="email" 
+                
                 placeholder="student@codepath.org" value={props.checkoutForm.email}
                 onChange={(e)=>{props.handleOnCheckoutFormChange("email", e.target.value)}}></input>
             <input className="checkout-form-input" type="text" name="name" 
@@ -24,6 +24,7 @@ export default function CheckoutForm(props) {
 }
 
 function success(receipt) {
+    console.log(receipt)
     return (
         <div className="return-success">
             <div className="success">Thank you for shopping with us! Here is your receipt: </div>

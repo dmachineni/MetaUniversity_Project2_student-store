@@ -1,5 +1,7 @@
+
 import "./ProductGrid.css"
 import { ProductCard } from "../ProductCard/ProductCard"
+import React from 'react';
 
 
 export default function ProductGrid(props) {

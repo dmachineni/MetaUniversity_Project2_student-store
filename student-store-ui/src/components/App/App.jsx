@@ -26,7 +26,7 @@ export default function App() {
   useEffect(async () => {
     await axios.get('http://localhost:3001/store')
       .then(result => {setProducts(result.data.products); setFilteredProducts(result.data.products); setSearchFilteredProducts(result.data.products)}) 
-      .catch(e=>setError(error))
+      .catch(e=>setError(e))
   },[]);
 
   // useEffect(() => {
@@ -35,15 +35,15 @@ export default function App() {
 
   const handleOnSearchChange = (searchInput) => {
     // setSearchFilteredProducts(filteredProducts);
-    console.log('search',searchInput)
-    console.log('filtered products', filteredProducts)
+    // console.log('search',searchInput)
+    // console.log('filtered products', filteredProducts)
     let filtered = [];
     filteredProducts.map((p)=>{
       if(p.name.toLowerCase().includes(searchInput.toLowerCase())) {
         filtered.push(p);
       }
     })
-    console.log('final',filtered)
+    // console.log('final',filtered)
     setSearchFilteredProducts(filtered);
   }
 
@@ -111,24 +111,26 @@ export default function App() {
   const handleOnCheckoutFormChange = (label, value) => {
     let newForm = {...checkoutForm};
     newForm[label]=value;
-    console.log('handleOnCheckoutFormChange',newForm)
+    // console.log('handleOnCheckoutFormChange',newForm)
     setCheckoutForm(newForm);
   }
 
-  const handleOnSubmitCheckoutForm = async () => {
-    await axios.post('http://localhost:3001/store', {
-      user: { name: checkoutForm.name, email: checkoutForm.email},
+  const handleOnSubmitCheckoutForm = () => {
+    axios.post('http://localhost:3001/store', {
+      checkoutForm: { name: checkoutForm.name, email: checkoutForm.email},
       shoppingCart: shoppingCart
     })
       .then((r)=>{
-        setReceipt(r.data.purchase.receipt.lines)
+        // console.log('purchase', r.data.purchase)
+        // console.log('receipt', r.data.purchase.receipt)
+        setReceipt(r.data.purchase.receipt)
         setShoppingCart([]);
         let done = {name:"", email:""}
         setCheckoutForm(done);
         setNoError(true);
       })
       .catch((e)=>{
-        console.log('error', e)
+        // console.log('error', e)
         setNoError(false);
         setError(e);
       })

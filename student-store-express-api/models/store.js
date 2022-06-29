@@ -38,8 +38,8 @@ class Store {
             toReturn += `${item.quantity} total ${product.name} purchased at a cost of $${product.price}. `
         })
 
-        toReturn += `The total cost is $${this.orderTotal(cart)}. `
-        toReturn += `After taxes and fees were applied, the total comes out to $${(this.orderTotal(cart)*1.0875)}.`
+        toReturn += `The total cost is $${(this.orderTotal(cart)).toFixed(2)}. `
+        toReturn += `After taxes and fees were applied, the total comes out to $${(this.orderTotal(cart)*1.0875).toFixed(2)}.`
         
         return toReturn;
     }

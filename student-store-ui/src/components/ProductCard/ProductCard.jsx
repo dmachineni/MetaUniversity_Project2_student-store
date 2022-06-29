@@ -2,7 +2,6 @@ import "./ProductCard.css"
 import { Link } from "react-router-dom"
 
 export function ProductCard(props) {
-  console.log(props.product)
     return (
       <div className="product-card">
         
